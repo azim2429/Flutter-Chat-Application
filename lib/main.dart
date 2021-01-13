@@ -15,6 +15,7 @@ void main() async {
 
   runApp(
     new MaterialApp(
+      debugShowCheckedModeBanner: false,
         title: 'Flutter Chat',
         theme: ThemeData(
           primarySwatch: Colors.pink,
