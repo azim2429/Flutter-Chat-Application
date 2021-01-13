@@ -15,7 +15,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Chat'),
+        title: Text('My Secure Chat'),
+        leading: Container(),
+        centerTitle: true,
         actions: [
           DropdownButton(
             onChanged: (item) {
@@ -28,14 +30,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 );
               }
             },
-            icon: Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert,color: Colors.white,),
             items: [
               DropdownMenuItem(
                 child: Container(
                   child: Row(
                     children: [
                       Icon(Icons.exit_to_app),
-                      SizedBox(width: 12),
+                      SizedBox(width: 25),
                       Text('Logout')
                     ],
                   ),

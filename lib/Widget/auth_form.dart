@@ -24,7 +24,7 @@ class _AuthWidgetState extends State<AuthWidget> {
   File _image;
 
   void _pickImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera,imageQuality: 50,maxWidth: 150);
+    final pickedFile = await picker.getImage(source: ImageSource.gallery,imageQuality: 50,maxWidth: 150);
 
     setState(() {
       if (pickedFile != null) {

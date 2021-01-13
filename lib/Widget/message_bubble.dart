@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MessageBubble extends StatelessWidget {
+class MessageBubble extends StatefulWidget {
   MessageBubble(this.message, this.isMe, this.userImage, {this.key});
 
   final String message;
@@ -9,33 +9,43 @@ class MessageBubble extends StatelessWidget {
   final String userImage;
 
   @override
+  _MessageBubbleState createState() => _MessageBubbleState();
+}
+
+class _MessageBubbleState extends State<MessageBubble> {
+  bool secure = false;
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Row(
           mainAxisAlignment:
-              isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+              widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             Container(
               decoration: BoxDecoration(
-                color: isMe ? Colors.pink : Colors.purple,
+                color:
+                    widget.isMe ? Colors.pink.shade200 : Colors.purple.shade200,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
-                  bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(12),
-                  bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
+                  bottomLeft:
+                      !widget.isMe ? Radius.circular(0) : Radius.circular(12),
+                  bottomRight:
+                      widget.isMe ? Radius.circular(0) : Radius.circular(12),
                 ),
               ),
-              width: 140,
+              width: 190,
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
               margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
               child: Column(
                 //mainAxisAlignment: isMe?MainAxisAlignment.end:MainAxisAlignment.start,
                 children: [
                   Text(
-                    message,
-                    style: TextStyle(color: isMe ? Colors.white : Colors.white),
-                    textAlign: isMe ? TextAlign.end : TextAlign.start,
+                    widget.message,
+                    style: TextStyle(color: Colors.white),
+                    textAlign: widget.isMe ? TextAlign.end : TextAlign.start,
                   ),
                 ],
               ),
@@ -43,9 +53,13 @@ class MessageBubble extends StatelessWidget {
           ],
         ),
         Positioned(
-          top:0,left:isMe?null:130,right: isMe?130:null,
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(userImage),
+          top: -5,
+          left: widget.isMe ? null : 180,
+          right: widget.isMe ? 180 : null,
+          child: GestureDetector(
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(widget.userImage),
+            ),
           ),
         ),
       ],

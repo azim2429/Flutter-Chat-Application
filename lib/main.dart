@@ -19,6 +19,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: Colors.pink,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+            //brightness:Brightness.dark
         ),
         home: home,
         // home: ChatScreen(),

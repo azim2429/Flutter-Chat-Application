@@ -52,7 +52,7 @@ class _AuthScreenState extends State<AuthScreen> {
       final url = await ref.getDownloadURL();
       
         if (auth.currentUser != null) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => ChatScreen()),
           );

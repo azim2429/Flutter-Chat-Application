@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^0.19.0+1
   image_picker: ^0.6.7+21
   firebase_storage: ^6.0.0
+  encrypt: ^4.1.0
 
 dev_dependencies:
   flutter_test:

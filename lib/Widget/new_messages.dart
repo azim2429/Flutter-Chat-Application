@@ -8,20 +8,21 @@ class NewMessages extends StatefulWidget {
 }
 
 class _NewMessagesState extends State<NewMessages> {
-
   var _enteredMessage;
   final _controller = new TextEditingController();
 
-
   void _sendMessage() async {
     FirebaseAuth auth = await FirebaseAuth.instance;
-    final userData = await FirebaseFirestore.instance.collection('users').doc(auth.currentUser.uid).get();
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(auth.currentUser.uid)
+        .get();
     FocusScope.of(context).unfocus();
     FirebaseFirestore.instance.collection('chat').add({
-      'text':_enteredMessage,
-      'time':Timestamp.now(),
+      'text': _enteredMessage,
+      'time': Timestamp.now(),
       'userId': auth.currentUser.uid,
-      'userImage':userData['image_url'],
+      'userImage': userData['image_url'],
     });
     _controller.clear();
   }
@@ -35,9 +36,18 @@ class _NewMessagesState extends State<NewMessages> {
         children: [
           Expanded(
             child: TextField(
-              controller:_controller,
+              controller: _controller,
+              cursorColor: Colors.black,
               decoration: InputDecoration(
-                labelText: 'Send Message',
+                hintText: 'Send Message',
+                //fillColor: Colors.pink,
+                hintStyle: TextStyle(color: Colors.black),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide: BorderSide(
+                    width: 1.5,
+                  ),
+                ),
               ),
               onChanged: (value) {
                 setState(() {
@@ -46,9 +56,13 @@ class _NewMessagesState extends State<NewMessages> {
               },
             ),
           ),
-          IconButton(icon: Icon(Icons.send), onPressed: _enteredMessage.toString().trim().isEmpty?null:(){
-            _sendMessage();
-    })
+          IconButton(
+              icon: Icon(Icons.send,color: Colors.purpleAccent.shade400),
+              onPressed: _enteredMessage.toString().trim().isEmpty
+                  ? null
+                  : () {
+                      _sendMessage();
+                    })
         ],
       ),
     );
