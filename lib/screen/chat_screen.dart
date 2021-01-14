@@ -12,10 +12,20 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
   var roomID;
 
-  void getRoomID() async{
+  void logout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove('token');
+    FirebaseAuth.instance.signOut();
+    print('logout');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AuthScreen()),
+    );
+  }
+
+  void getRoomID() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
       roomID = pref.getString('room');
@@ -24,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   @override
-  void initState(){
+  void initState() {
     getRoomID();
     super.initState();
   }
@@ -33,22 +43,20 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room ID : '+roomID.toString()),
+        title: Text('Room ID : ' + roomID.toString()),
         leading: Container(),
         centerTitle: true,
         actions: [
           DropdownButton(
             onChanged: (item) {
               if (item == 'logout') {
-                FirebaseAuth.instance.signOut();
-                print('logout');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AuthScreen()),
-                );
+                logout();
               }
             },
-            icon: Icon(Icons.more_vert,color: Colors.white,),
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
             items: [
               DropdownMenuItem(
                 child: Container(

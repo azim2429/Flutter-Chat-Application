@@ -75,8 +75,13 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     } catch (err) {
       print(err);
-      if (err ==
-          'The password is invalid or the user does not have a password.') {
+      if(err.toString() == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.'){
+        Scaffold.of(ctx).showSnackBar(SnackBar(
+          content: Text('User Does Not Exists'),
+          backgroundColor: Colors.red,
+        ));
+      }
+      if (err.toString() == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
         Scaffold.of(ctx).showSnackBar(SnackBar(
           content: Text('Wrong Password'),
           backgroundColor: Colors.red,
