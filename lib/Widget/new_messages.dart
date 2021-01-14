@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewMessages extends StatefulWidget {
   @override
@@ -13,12 +14,13 @@ class _NewMessagesState extends State<NewMessages> {
 
   void _sendMessage() async {
     FirebaseAuth auth = await FirebaseAuth.instance;
+    SharedPreferences pref = await SharedPreferences.getInstance();
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser.uid)
         .get();
     FocusScope.of(context).unfocus();
-    FirebaseFirestore.instance.collection('chat').add({
+    FirebaseFirestore.instance.collection('chat/rooms/'+pref.getString('room')).add({
       'text': _enteredMessage,
       'time': Timestamp.now(),
       'userId': auth.currentUser.uid,
@@ -36,6 +38,7 @@ class _NewMessagesState extends State<NewMessages> {
         children: [
           Expanded(
             child: TextField(
+              keyboardType: TextInputType.multiline,
               controller: _controller,
               cursorColor: Colors.black,
               decoration: InputDecoration(

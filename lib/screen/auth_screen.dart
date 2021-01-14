@@ -1,12 +1,12 @@
 import 'dart:io';
-
 import 'package:chatapp/Widget/auth_form.dart';
-import 'package:chatapp/screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+import 'enter_room.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -33,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
         if (auth.currentUser != null) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatScreen()),
+            MaterialPageRoute(builder: (context) => JoinRoom()),
           );
         }
       } else {
@@ -42,30 +42,26 @@ class _AuthScreenState extends State<AuthScreen> {
           password: pass,
         );
 
-      final ref =  FirebaseStorage.instance
+        final ref = FirebaseStorage.instance
             .ref()
             .child('user_image')
             .child(_auth.currentUser.uid + '.jpg');
-         
-      await ref.putFile(image);
 
-      final url = await ref.getDownloadURL();
-      
+        await ref.putFile(image);
+
+        final url = await ref.getDownloadURL();
+
         if (auth.currentUser != null) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => ChatScreen()),
+            MaterialPageRoute(builder: (context) => JoinRoom()),
           );
         }
         print("Hello" + '$userCredential');
         FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user.uid)
-            .set({
-          'username': username,
-          'email': email,
-          'image_url':url
-        });
+            .set({'username': username, 'email': email, 'image_url': url});
       }
     } on PlatformException catch (err) {
       message = 'Please check again!';
@@ -79,6 +75,14 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     } catch (err) {
       print(err);
+      if (err ==
+          'The password is invalid or the user does not have a password.') {
+        Scaffold.of(ctx).showSnackBar(SnackBar(
+          content: Text('Wrong Password'),
+          backgroundColor: Colors.red,
+        ));
+      }
+
       setState(() {
         isLoading = false;
       });
@@ -88,7 +92,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.pink.shade300,
       body: AuthWidget(_submitAuthForm, isLoading),
     );
   }

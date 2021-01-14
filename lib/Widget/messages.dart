@@ -2,14 +2,37 @@ import 'package:chatapp/Widget/message_bubble.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Messages extends StatelessWidget {
+class Messages extends StatefulWidget {
+
+  @override
+  _MessagesState createState() => _MessagesState();
+}
+
+class _MessagesState extends State<Messages> {
+
+  var roomID;
+
+  void getRoomID() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      roomID = pref.getString('room');
+    });
+    print(roomID);
+  }
+
+  @override
+  void initState(){
+    getRoomID();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('chat').orderBy('time',descending: true)
+            .collection('chat/rooms/'+roomID.toString()).orderBy('time',descending: true)
             .snapshots(),
         builder: (ctx, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
           if (streamSnapshot.connectionState == ConnectionState.waiting) {

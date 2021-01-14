@@ -15,21 +15,21 @@ class MessageBubble extends StatefulWidget {
 
 class _MessageBubbleState extends State<MessageBubble> {
   bool secure = true;
-  String secureMessage='';
+  String secureMessage = '';
 
   void main() {
-    var plainText=widget.message;
+    var plainText = widget.message;
 
     final key = encrypt.Key.fromLength(32);
     final iv = encrypt.IV.fromLength(16);
     final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
     final encrypted = encrypter.encrypt(plainText, iv: iv);
-    final decrypted = encrypter.decrypt(encrypted, iv: iv);
+    //final decrypted = encrypter.decrypt(encrypted, iv: iv);
 
-    print(decrypted);
-    print(encrypted.base16.substring(0,15));
-    secureMessage = encrypted.base16.substring(0,20);
+//    print(decrypted);
+//    print(encrypted.base16.substring(0,15));
+    secureMessage = encrypted.base16.substring(0, 20);
   }
 
   @override
@@ -48,12 +48,15 @@ class _MessageBubbleState extends State<MessageBubble> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: widget.isMe ? Colors.pink.shade200 : Colors.purple.shade200,
+                color:
+                    widget.isMe ? Colors.pink.shade200 : Colors.purple.shade200,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
-                  bottomLeft: !widget.isMe ? Radius.circular(0) : Radius.circular(12),
-                  bottomRight: widget.isMe ? Radius.circular(0) : Radius.circular(12),
+                  bottomLeft:
+                      !widget.isMe ? Radius.circular(0) : Radius.circular(12),
+                  bottomRight:
+                      widget.isMe ? Radius.circular(0) : Radius.circular(12),
                 ),
               ),
               width: 190,
@@ -63,7 +66,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                 //mainAxisAlignment: isMe?MainAxisAlignment.end:MainAxisAlignment.start,
                 children: [
                   Text(
-                    secure?secureMessage:widget.message,
+                    secure ? secureMessage : widget.message,
                     style: TextStyle(color: Colors.white),
                     textAlign: widget.isMe ? TextAlign.end : TextAlign.start,
                   ),
@@ -77,11 +80,11 @@ class _MessageBubbleState extends State<MessageBubble> {
           left: widget.isMe ? null : 180,
           right: widget.isMe ? 180 : null,
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               setState(() {
-                main();
-                print(widget.message);
-                secure=!secure;
+                //main();
+                //print(widget.message);
+                secure = !secure;
               });
             },
             child: CircleAvatar(

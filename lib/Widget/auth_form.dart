@@ -148,7 +148,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                         },
                         color: Theme.of(context).primaryColor,
                         child: Text(
-                            _isLogin ? 'New User?' : 'Already have an Account'))
+                            _isLogin ? 'New User?' : 'Already have an Account',style: TextStyle(color: Colors.white),))
                 ],
               ),
             ),
