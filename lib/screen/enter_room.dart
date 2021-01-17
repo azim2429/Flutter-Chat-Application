@@ -11,13 +11,16 @@ class JoinRoom extends StatefulWidget {
 class _JoinRoomState extends State<JoinRoom> {
   final _formKey = GlobalKey<FormState>();
 
+  var randomId = TextEditingController();
   var roomId;
   int randomRoomID;
+  Color background = Color(0xff125589);
+  Color button = Color(0xffeeeeee);
 
   void generateRoomId() {
     Random random = new Random();
     setState(() {
-      randomRoomID = random.nextInt(99999);
+      randomId.text = random.nextInt(99999).toString();
     });
 
     print(randomRoomID);
@@ -44,7 +47,7 @@ class _JoinRoomState extends State<JoinRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: background,
       body: Center(
         child: Container(
           width: 250,
@@ -58,11 +61,11 @@ class _JoinRoomState extends State<JoinRoom> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Form(
                     key: _formKey,
                     child: TextFormField(
-                      initialValue: randomRoomID.toString(),
+                      controller: randomId,
                       key: ValueKey('roomId'),
                       validator: (value) {
                         if (value.length < 5 || value.length > 6) {
@@ -78,8 +81,7 @@ class _JoinRoomState extends State<JoinRoom> {
                       },
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: randomRoomID.toString(),
-                        hintText: randomRoomID.toString()
+                        hintText: 'Enter Room ID'
                       ),
                     ),
                   ),
@@ -92,14 +94,14 @@ class _JoinRoomState extends State<JoinRoom> {
                         generateRoomId();
                       },
                       elevation: 5,
-                      child: Text('Generate',style: TextStyle(color: Colors.white),),
-                      color: Colors.purpleAccent,
+                      child: Text('Generate',style: TextStyle(color: Colors.black),),
+                      color: button,
                     ),
                     FlatButton(
                         onPressed: () {
                           submit();
                         },
-                        color: Theme.of(context).primaryColor,
+                        color: background,
                         child: Text(
                           'Join',
                           style: TextStyle(color: Colors.white),

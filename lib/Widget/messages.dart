@@ -45,7 +45,7 @@ class _MessagesState extends State<Messages> {
           return ListView.builder(
             reverse: true,
             itemCount: streamSnapshot.data.docs.length,
-            itemBuilder: (ctx, index) => MessageBubble(documents[index]['text'],documents[index]['userId']==currId,documents[index]['userImage'],key: ValueKey(documents[index].id)),
+            itemBuilder: (ctx, index) => MessageBubble(documents[index]['text'],documents[index]['userId']==currId,documents[index]['userImage'],documents[index]['time'].toDate(),key: ValueKey(documents[index].id)),
           );
         });
   }

@@ -19,7 +19,7 @@ void main() async {
       debugShowCheckedModeBanner: false,
         title: 'Flutter Chat',
         theme: ThemeData(
-          primarySwatch: Colors.pink,
+          //primarySwatch: Colors.pink,
           visualDensity: VisualDensity.adaptivePlatformDensity,
             //brightness:Brightness.dark
         ),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:intl/intl.dart';
 
 class MessageBubble extends StatefulWidget {
-  MessageBubble(this.message, this.isMe, this.userImage, {this.key});
+  MessageBubble(this.message, this.isMe, this.userImage, this.time, {this.key});
 
   final String message;
   final bool isMe;
   final Key key;
   final String userImage;
+  final DateTime time;
 
   @override
   _MessageBubbleState createState() => _MessageBubbleState();
@@ -16,10 +18,12 @@ class MessageBubble extends StatefulWidget {
 class _MessageBubbleState extends State<MessageBubble> {
   bool secure = true;
   String secureMessage = '';
+  Color myMessage = Color(0xff125589);
+  Color urMessage = Color(0xffeeeeee);
+
 
   void main() {
     var plainText = widget.message;
-
     final key = encrypt.Key.fromLength(32);
     final iv = encrypt.IV.fromLength(16);
     final encrypter = encrypt.Encrypter(encrypt.AES(key));
@@ -29,7 +33,7 @@ class _MessageBubbleState extends State<MessageBubble> {
 
 //    print(decrypted);
 //    print(encrypted.base16.substring(0,15));
-    secureMessage = encrypted.base16.substring(0, 20);
+    secureMessage = encrypted.base16.substring(0, 18);
   }
 
   @override
@@ -49,7 +53,7 @@ class _MessageBubbleState extends State<MessageBubble> {
             Container(
               decoration: BoxDecoration(
                 color:
-                    widget.isMe ? Colors.pink.shade200 : Colors.purple.shade200,
+                    widget.isMe ? myMessage : urMessage,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
@@ -63,22 +67,26 @@ class _MessageBubbleState extends State<MessageBubble> {
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
               margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
               child: Column(
-                //mainAxisAlignment: isMe?MainAxisAlignment.end:MainAxisAlignment.start,
+                crossAxisAlignment: widget.isMe
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: [
                   Text(
                     secure ? secureMessage : widget.message,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: widget.isMe?Colors.white:Colors.black, fontSize: 16),
                     textAlign: widget.isMe ? TextAlign.end : TextAlign.start,
                   ),
+                  SizedBox(height: 3),
+                  Text(widget.time.toString().substring(11, 16),style: TextStyle(color: widget.isMe?Colors.white70:Colors.black45,fontSize: 12),),
                 ],
               ),
             ),
           ],
         ),
         Positioned(
-          top: -5,
-          left: widget.isMe ? null : 180,
-          right: widget.isMe ? 180 : null,
+          top: 17,
+          left: widget.isMe ? null : 200,
+          right: widget.isMe ? 200 : null,
           child: GestureDetector(
             onTap: () {
               setState(() {

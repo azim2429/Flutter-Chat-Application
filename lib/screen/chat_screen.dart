@@ -2,7 +2,7 @@ import 'package:chatapp/Widget/messages.dart';
 import 'package:chatapp/Widget/new_messages.dart';
 import 'package:chatapp/screen/auth_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'enter_room.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +13,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   var roomID;
+  Color appBar = Color(0xff125589);
 
   void logout() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -43,8 +44,19 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room ID : ' + roomID.toString()),
-        leading: Container(),
+        backgroundColor: appBar,
+        title: Text('Room ID : ' + roomID.toString(),style: TextStyle(color: Colors.white),),
+        leading: IconButton(
+          onPressed: (){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => JoinRoom()),
+            );
+          },
+            color: Colors.white,
+          icon: Icon(Icons.home)
+
+        ),
         centerTitle: true,
         actions: [
           DropdownButton(

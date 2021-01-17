@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class NewMessages extends StatefulWidget {
   @override
   _NewMessagesState createState() => _NewMessagesState();
@@ -11,6 +12,7 @@ class NewMessages extends StatefulWidget {
 class _NewMessagesState extends State<NewMessages> {
   var _enteredMessage;
   final _controller = new TextEditingController();
+  Color button = Color(0xff125589);
 
   void _sendMessage() async {
     FirebaseAuth auth = await FirebaseAuth.instance;
@@ -22,7 +24,7 @@ class _NewMessagesState extends State<NewMessages> {
     FocusScope.of(context).unfocus();
     FirebaseFirestore.instance.collection('chat/rooms/'+pref.getString('room')).add({
       'text': _enteredMessage,
-      'time': Timestamp.now(),
+      'time': DateTime.now(),
       'userId': auth.currentUser.uid,
       'userImage': userData['image_url'],
     });
@@ -40,11 +42,11 @@ class _NewMessagesState extends State<NewMessages> {
             child: TextField(
               keyboardType: TextInputType.multiline,
               controller: _controller,
-              cursorColor: Colors.black,
+              cursorColor: button,
               decoration: InputDecoration(
                 hintText: 'Send Message',
-                //fillColor: Colors.pink,
-                hintStyle: TextStyle(color: Colors.black),
+                fillColor: Colors.pink,
+                hintStyle: TextStyle(color: button),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(
@@ -60,7 +62,7 @@ class _NewMessagesState extends State<NewMessages> {
             ),
           ),
           IconButton(
-              icon: Icon(Icons.send,color: Colors.purpleAccent.shade400),
+              icon: Icon(Icons.send,color: button),
               onPressed: _enteredMessage.toString().trim().isEmpty
                   ? null
                   : () {

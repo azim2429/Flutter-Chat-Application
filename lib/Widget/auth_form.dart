@@ -22,6 +22,8 @@ class _AuthWidgetState extends State<AuthWidget> {
   var _isLogin = true;
   final picker = ImagePicker();
   File _image;
+  Color image = Color(0xff125589);
+  Color button = Color(0xffeeeeee);
 
   void _pickImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery,imageQuality: 50,maxWidth: 150);
@@ -73,7 +75,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     ),
                   if (!_isLogin)
                     FlatButton.icon(
-                        textColor: Colors.pink,
+                        textColor: image,
                         icon: Icon(Icons.image),
                         label: Text('Add Image'),
                         onPressed: () {
@@ -133,7 +135,8 @@ class _AuthWidgetState extends State<AuthWidget> {
                   if (widget.isloading) CircularProgressIndicator(),
                   if (!widget.isloading)
                     RaisedButton(
-                      child: Text(_isLogin ? 'Login' : 'Register'),
+                      color: image,
+                      child: Text(_isLogin ? 'Login' : 'Register',style: TextStyle(color: Colors.white),),
                       onPressed: () {
                         _submit();
                       },
@@ -146,9 +149,9 @@ class _AuthWidgetState extends State<AuthWidget> {
                             _isLogin = !_isLogin;
                           });
                         },
-                        color: Theme.of(context).primaryColor,
+                           color: button,
                         child: Text(
-                            _isLogin ? 'New User?' : 'Already have an Account',style: TextStyle(color: Colors.white),))
+                            _isLogin ? 'New User?' : 'Already have an Account?',style: TextStyle(color: Colors.black87),))
                 ],
               ),
             ),

@@ -18,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var isLoading = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   var message;
+  Color backGround = Color(0xff125589);
 
   void _submitAuthForm(String email, String pass, String username, File image,
       bool isLogin, BuildContext ctx) async {
@@ -97,7 +98,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink.shade300,
+      backgroundColor: backGround,
       body: AuthWidget(_submitAuthForm, isLoading),
     );
   }
