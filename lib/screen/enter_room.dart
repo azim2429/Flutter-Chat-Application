@@ -26,7 +26,6 @@ class _JoinRoomState extends State<JoinRoom> {
       randomId.text = random.nextInt(99999).toString();
     });
 
-    print(randomRoomID);
   }
 
   void logout() async {
@@ -63,10 +62,12 @@ class _JoinRoomState extends State<JoinRoom> {
       resizeToAvoidBottomInset: false,
       backgroundColor: background,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: background,
         centerTitle: true,
         actions: [
           DropdownButton(
+            elevation: 4,
             onChanged: (item) {
               if (item == 'logout') {
                 logout();

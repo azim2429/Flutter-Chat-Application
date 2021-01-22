@@ -40,7 +40,6 @@ class _MessagesState extends State<Messages> {
             );
           }
           final documents = streamSnapshot.data.docs;
-          print(documents);
           var currId = FirebaseAuth.instance.currentUser.uid;
           return documents != null
               ? ListView.builder(
