@@ -88,7 +88,18 @@ class _AuthScreenState extends State<AuthScreen> {
           backgroundColor: Colors.red,
         ));
       }
-
+      if (err.toString() == '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+        Scaffold.of(ctx).showSnackBar(SnackBar(
+          content: Text('Email Already Exists'),
+          backgroundColor: Colors.red,
+        ));
+      }
+      if (err.toString() == '[firebase_auth/unknown] com.google.firebase.FirebaseException: An internal error has occurred. [ Unable to resolve host "www.googleapis.com":No address associated with hostname ]') {
+        Scaffold.of(ctx).showSnackBar(SnackBar(
+          content: Text('Please check your internet connection'),
+          backgroundColor: Colors.red,
+        ));
+      }
       setState(() {
         isLoading = false;
       });

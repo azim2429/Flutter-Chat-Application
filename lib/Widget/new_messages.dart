@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class NewMessages extends StatefulWidget {
   @override
   _NewMessagesState createState() => _NewMessagesState();
@@ -22,7 +21,9 @@ class _NewMessagesState extends State<NewMessages> {
         .doc(auth.currentUser.uid)
         .get();
     FocusScope.of(context).unfocus();
-    FirebaseFirestore.instance.collection('chat/rooms/'+pref.getString('room')).add({
+    FirebaseFirestore.instance
+        .collection('chat/rooms/' + pref.getString('room'))
+        .add({
       'text': _enteredMessage,
       'time': DateTime.now(),
       'userId': auth.currentUser.uid,
@@ -34,24 +35,19 @@ class _NewMessagesState extends State<NewMessages> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
-      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.all(12),
       child: Row(
         children: [
           Expanded(
             child: TextField(
-              keyboardType: TextInputType.multiline,
+              keyboardType: TextInputType.text,
               controller: _controller,
               cursorColor: button,
               decoration: InputDecoration(
                 hintText: 'Send Message',
-                fillColor: Colors.pink,
                 hintStyle: TextStyle(color: button),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 1.5,
-                  ),
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
               onChanged: (value) {
@@ -62,12 +58,13 @@ class _NewMessagesState extends State<NewMessages> {
             ),
           ),
           IconButton(
-              icon: Icon(Icons.send,color: button),
-              onPressed: _enteredMessage.toString().trim().isEmpty
-                  ? null
-                  : () {
-                      _sendMessage();
-                    })
+            icon: Icon(Icons.send, color: button),
+            onPressed: _enteredMessage.toString().trim().isEmpty
+                ? null
+                : () {
+                    _sendMessage();
+                  },
+          ),
         ],
       ),
     );

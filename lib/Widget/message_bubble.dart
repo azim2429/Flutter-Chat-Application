@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:intl/intl.dart';
 
 class MessageBubble extends StatefulWidget {
   MessageBubble(this.message, this.isMe, this.userImage, this.time, {this.key});
@@ -19,21 +18,16 @@ class _MessageBubbleState extends State<MessageBubble> {
   bool secure = true;
   String secureMessage = '';
   Color myMessage = Color(0xff125589);
-  Color urMessage = Color(0xffeeeeee);
-
+  Color urMessage = Color(0xffffffff);
 
   void main() {
     var plainText = widget.message;
     final key = encrypt.Key.fromLength(32);
     final iv = encrypt.IV.fromLength(16);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-
+    final encrypter =
+        encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ctr));
     final encrypted = encrypter.encrypt(plainText, iv: iv);
-    //final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-//    print(decrypted);
-//    print(encrypted.base16.substring(0,15));
-    secureMessage = encrypted.base16.substring(0, 18);
+    secureMessage = encrypted.base16.substring(0, 17);
   }
 
   @override
@@ -52,8 +46,13 @@ class _MessageBubbleState extends State<MessageBubble> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color:
-                    widget.isMe ? myMessage : urMessage,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 4,
+                  ),
+                ],
+                color: widget.isMe ? myMessage : urMessage,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
@@ -64,8 +63,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                 ),
               ),
               width: 190,
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-              margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              margin: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
               child: Column(
                 crossAxisAlignment: widget.isMe
                     ? CrossAxisAlignment.end
@@ -73,11 +72,18 @@ class _MessageBubbleState extends State<MessageBubble> {
                 children: [
                   Text(
                     secure ? secureMessage : widget.message,
-                    style: TextStyle(color: widget.isMe?Colors.white:Colors.black, fontSize: 16),
+                    style: TextStyle(
+                        color: widget.isMe ? Colors.white : myMessage,
+                        fontSize: 16),
                     textAlign: widget.isMe ? TextAlign.end : TextAlign.start,
                   ),
-                  SizedBox(height: 3),
-                  Text(widget.time.toString().substring(11, 16),style: TextStyle(color: widget.isMe?Colors.white70:Colors.black45,fontSize: 12),),
+                  SizedBox(height: 2.5),
+                  Text(
+                    widget.time.toString().substring(11, 16),
+                    style: TextStyle(
+                        color: widget.isMe ? Colors.white70 : Colors.black45,
+                        fontSize: 12),
+                  ),
                 ],
               ),
             ),
@@ -96,7 +102,10 @@ class _MessageBubbleState extends State<MessageBubble> {
               });
             },
             child: CircleAvatar(
-              backgroundImage: NetworkImage(widget.userImage),
+              backgroundImage: widget.userImage != null
+                  ? NetworkImage(widget.userImage)
+                  : NetworkImage(
+                      'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-512.png'),
             ),
           ),
         ),

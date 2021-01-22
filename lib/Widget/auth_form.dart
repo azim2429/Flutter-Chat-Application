@@ -71,7 +71,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     CircleAvatar(
                       radius: 40,
                       backgroundImage:
-                          _image != null ? FileImage(_image) : null,
+                          _image != null ? FileImage(_image) : NetworkImage('https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-512.png'),
                     ),
                   if (!_isLogin)
                     FlatButton.icon(

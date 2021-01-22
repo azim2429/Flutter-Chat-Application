@@ -1,7 +1,10 @@
 import 'package:chatapp/screen/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
+
+import 'auth_screen.dart';
 
 class JoinRoom extends StatefulWidget {
   @override
@@ -26,6 +29,17 @@ class _JoinRoomState extends State<JoinRoom> {
     print(randomRoomID);
   }
 
+  void logout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove('token');
+    FirebaseAuth.instance.signOut();
+    print('logout');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AuthScreen()),
+    );
+  }
+
   void submit() async {
     final valid = _formKey.currentState.validate();
 
@@ -48,11 +62,41 @@ class _JoinRoomState extends State<JoinRoom> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: background,
+      appBar: AppBar(
+        backgroundColor: background,
+        centerTitle: true,
+        actions: [
+          DropdownButton(
+            onChanged: (item) {
+              if (item == 'logout') {
+                logout();
+              }
+            },
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+            items: [
+              DropdownMenuItem(
+                child: Row(
+                  children: [
+                    Icon(Icons.exit_to_app),
+                    SizedBox(width: 25),
+                    Text('Logout'),
+                  ],
+                ),
+                value: 'logout',
+              ),
+            ],
+          )
+        ],
+      ),
       body: Center(
         child: Container(
           width: 250,
           height: 250,
           child: Card(
+            elevation: 10,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

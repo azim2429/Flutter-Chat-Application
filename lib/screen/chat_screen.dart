@@ -14,6 +14,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   var roomID;
   Color appBar = Color(0xff125589);
+  Color back = Color(0xffffffff);
 
   void logout() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -23,6 +24,13 @@ class _ChatScreenState extends State<ChatScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => AuthScreen()),
+    );
+  }
+
+  void room() async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => JoinRoom()),
     );
   }
 
@@ -43,26 +51,31 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: back,
       appBar: AppBar(
+        elevation: 10,
         backgroundColor: appBar,
-        title: Text('Room ID : ' + roomID.toString(),style: TextStyle(color: Colors.white),),
-        leading: IconButton(
-          onPressed: (){
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => JoinRoom()),
-            );
-          },
-            color: Colors.white,
-          icon: Icon(Icons.home)
-
+        title: Text(
+          'Room ID : ' + roomID.toString(),
+          style: TextStyle(color: Colors.white),
         ),
+        leading: IconButton(
+            onPressed: () {
+              setState(() {
+
+              });
+            },
+            color: Colors.white,
+            icon: Icon(Icons.message_rounded)),
         centerTitle: true,
         actions: [
           DropdownButton(
             onChanged: (item) {
               if (item == 'logout') {
                 logout();
+              }
+              if (item == 'room') {
+                room();
               }
             },
             icon: Icon(
@@ -71,22 +84,31 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             items: [
               DropdownMenuItem(
-                child: Container(
-                  child: Row(
-                    children: [
-                      Icon(Icons.exit_to_app),
-                      SizedBox(width: 25),
-                      Text('Logout')
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    Icon(Icons.exit_to_app),
+                    SizedBox(width: 25),
+                    Text('Logout'),
+                  ],
                 ),
                 value: 'logout',
-              )
+              ),
+              DropdownMenuItem(
+                child: Row(
+                  children: [
+                    Icon(Icons.home),
+                    SizedBox(width: 25),
+                    Text('Room'),
+                  ],
+                ),
+                value: 'room',
+              ),
             ],
           )
         ],
       ),
       body: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
         child: Column(
           children: [
             Expanded(
