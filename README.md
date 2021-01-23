@@ -1,5 +1,5 @@
 # Secure Chat 🔒 
-Have you ever been in an embarrassing situation **when someone sitting next to you or standing over you gets the opportunity to get a sneak peek of what’s on your large smartphone screen?** Or someone without your consent **takes a look at your chats endagering your privacy?**
+Have you ever been in an embarrassing situation **when someone sitting next to you or standing over you gets the opportunity to get a sneak peek of what’s on your large smartphone screen?** Or someone without your consent **takes a look at your chats endangering your privacy?**
 
 <p><img src="assest/peeping.jpg" width="60%"></p>
 
@@ -27,12 +27,12 @@ Secure chat is flutter based messaging app that would protect your chats anywher
 
 ### WORKING
 
-Once the users logs inside the app and enters into the prefferred room , a room is created in firebase firestore.
+Once the user logs inside the app and enters into the preferred room , a room is created in the firebase firestore.
 
-Now the if the user sends a message it is by defualt encrypted in client side , so that no one can see the messages.Suppose the reciever wants to decrypt ,**reciver would simply click the corresponding profile photot of the message.**
+Now the if the user sends a message it is by default encrypted in client side , so that no one can see the messages.Suppose the receiver wants to decrypt ,**receiver would simply click the corresponding profile photo of the message.**
 And again click it to encrypt.
 
-Users can leave the room or logout from the app using logut button at the top.
+Users can leave the room or logout from the app using logout button at the top.
 
 
 ## Setup
