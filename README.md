@@ -19,4 +19,4 @@ Secure chat is flutter based messaging app that would protect your chats anywher
 
 ### DEMO
 
-<img src="assest/login.gif" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img1.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img2.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img4.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img3.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/securechat.gif" width="30%">
+<img src="assest/login.gif" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img1.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img2.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img4.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img3.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/securechat.gif" width="30%">
