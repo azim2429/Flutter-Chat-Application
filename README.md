@@ -8,7 +8,7 @@ Have you ever been in an embarrassing situation **when someone sitting next to y
 Secure chat is flutter based messaging app that would protect your chats anywhere anytime!🔒 Users can login or signup using their email address and password and chat with their near and dear ones using a unique Room Id.
 
 ## Download Here
- <pre><a href="https://github.com/azim2429/Flutter-Chat-Application/blob/master/app.apk">Secure Chat 🔒</a></pre>
+ <pre><a href="https://github.com/azim2429/Flutter-Chat-Application/blob/master/app.apk?raw=true">Secure Chat 🔒</a></pre>
 
 ## Features of Secure Chat
 
