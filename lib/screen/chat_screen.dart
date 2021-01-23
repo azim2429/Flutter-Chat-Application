@@ -59,14 +59,17 @@ class _ChatScreenState extends State<ChatScreen> {
           'Room ID : ' + roomID.toString(),
           style: TextStyle(color: Colors.white),
         ),
-        leading: IconButton(
-            onPressed: () {
-              setState(() {
-
-              });
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {});
             },
-            color: Colors.white,
-            icon: Icon(Icons.message_rounded)),
+            child: Image(
+              image: AssetImage('assest/icon.png'),
+            ),
+          ),
+        ),
         centerTitle: true,
         actions: [
           DropdownButton(

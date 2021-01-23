@@ -14,7 +14,7 @@ class _NewMessagesState extends State<NewMessages> {
   Color button = Color(0xff125589);
 
   void _sendMessage() async {
-    FirebaseAuth auth = await FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
     SharedPreferences pref = await SharedPreferences.getInstance();
     final userData = await FirebaseFirestore.instance
         .collection('users')

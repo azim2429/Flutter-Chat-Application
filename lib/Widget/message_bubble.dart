@@ -24,9 +24,9 @@ class _MessageBubbleState extends State<MessageBubble> {
     var plainText = widget.message;
     final key = encrypt.Key.fromLength(32);
     final iv = encrypt.IV.fromLength(16);
-    final encrypter =
+    final encrypting =
         encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.ctr));
-    final encrypted = encrypter.encrypt(plainText, iv: iv);
+    final encrypted = encrypting.encrypt(plainText, iv: iv);
     secureMessage = encrypted.base16.substring(0, 17);
   }
 

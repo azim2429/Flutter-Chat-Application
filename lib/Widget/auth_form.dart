@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -7,8 +6,8 @@ class AuthWidget extends StatefulWidget {
   AuthWidget(this.submitFn, this.isloading);
 
   final bool isloading;
-  final void Function(String email, String pass, String username,File image, bool isLogin,
-      BuildContext ctx) submitFn;
+  final void Function(String email, String pass, String username, File image,
+      bool isLogin, BuildContext ctx) submitFn;
 
   @override
   _AuthWidgetState createState() => _AuthWidgetState();
@@ -26,7 +25,8 @@ class _AuthWidgetState extends State<AuthWidget> {
   Color button = Color(0xffeeeeee);
 
   void _pickImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery,imageQuality: 50,maxWidth: 150);
+    final pickedFile = await picker.getImage(
+        source: ImageSource.gallery, imageQuality: 50, maxWidth: 150);
 
     setState(() {
       if (pickedFile != null) {
@@ -41,16 +41,18 @@ class _AuthWidgetState extends State<AuthWidget> {
     final valid = _formKey.currentState.validate();
 
     if (_image == null && !_isLogin) {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Please pick an image'),backgroundColor: Colors.red,));
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('Please pick an image'),
+        backgroundColor: Colors.red,
+      ));
       return;
     }
 
     if (valid) {
       _formKey.currentState.save();
       FocusScope.of(context).unfocus();
-      widget.submitFn(
-          _userEmail.trim(), _userPass.trim(), _userName, _image,_isLogin, context);
+      widget.submitFn(_userEmail.trim(), _userPass.trim(), _userName, _image,
+          _isLogin, context);
     }
   }
 
@@ -70,8 +72,10 @@ class _AuthWidgetState extends State<AuthWidget> {
                   if (!_isLogin)
                     CircleAvatar(
                       radius: 40,
-                      backgroundImage:
-                          _image != null ? FileImage(_image) : NetworkImage('https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-512.png'),
+                      backgroundImage: _image != null
+                          ? FileImage(_image)
+                          : NetworkImage(
+                              'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-512.png'),
                     ),
                   if (!_isLogin)
                     FlatButton.icon(
@@ -136,7 +140,10 @@ class _AuthWidgetState extends State<AuthWidget> {
                   if (!widget.isloading)
                     RaisedButton(
                       color: image,
-                      child: Text(_isLogin ? 'Login' : 'Register',style: TextStyle(color: Colors.white),),
+                      child: Text(
+                        _isLogin ? 'Login' : 'Register',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () {
                         _submit();
                       },
@@ -149,9 +156,11 @@ class _AuthWidgetState extends State<AuthWidget> {
                             _isLogin = !_isLogin;
                           });
                         },
-                           color: button,
+                        color: button,
                         child: Text(
-                            _isLogin ? 'New User?' : 'Already have an Account?',style: TextStyle(color: Colors.black87),))
+                          _isLogin ? 'New User?' : 'Already have an Account?',
+                          style: TextStyle(color: Colors.black87),
+                        ))
                 ],
               ),
             ),

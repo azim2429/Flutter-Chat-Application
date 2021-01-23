@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'enter_room.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -76,25 +75,29 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     } catch (err) {
       print(err);
-      if(err.toString() == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.'){
+      if (err.toString() ==
+          '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
         Scaffold.of(ctx).showSnackBar(SnackBar(
           content: Text('User Does Not Exists'),
           backgroundColor: Colors.red,
         ));
       }
-      if (err.toString() == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
+      if (err.toString() ==
+          '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
         Scaffold.of(ctx).showSnackBar(SnackBar(
           content: Text('Wrong Password'),
           backgroundColor: Colors.red,
         ));
       }
-      if (err.toString() == '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+      if (err.toString() ==
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
         Scaffold.of(ctx).showSnackBar(SnackBar(
           content: Text('Email Already Exists'),
           backgroundColor: Colors.red,
         ));
       }
-      if (err.toString() == '[firebase_auth/unknown] com.google.firebase.FirebaseException: An internal error has occurred. [ Unable to resolve host "www.googleapis.com":No address associated with hostname ]') {
+      if (err.toString() ==
+          '[firebase_auth/unknown] com.google.firebase.FirebaseException: An internal error has occurred. [ Unable to resolve host "www.googleapis.com":No address associated with hostname ]') {
         Scaffold.of(ctx).showSnackBar(SnackBar(
           content: Text('Please check your internet connection'),
           backgroundColor: Colors.red,
@@ -109,8 +112,32 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: backGround,
-      body: AuthWidget(_submitAuthForm, isLoading),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage('assest/icon.png'),
+              ),
+              SizedBox(width: 10),
+              Text(
+                'Secure Chat',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          AuthWidget(_submitAuthForm, isLoading),
+        ],
+      ),
     );
   }
 }
