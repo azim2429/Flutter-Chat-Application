@@ -17,9 +17,20 @@ Secure chat is flutter based messaging app that would protect your chats anywher
 * One tap to hide and read your messages
 * Automated message encryption even if user forgets to hide
 
-### DEMO
+### SCREENSHOTS
 
 <img src="assest/login.gif" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img1.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img2.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img4.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/img3.jpg" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assest/securechat.gif" width="30%">
+
+
+### WORKING
+
+Once the users logs inside the app and enters into the prefferred room , a room is created in firebase firestore.
+
+Now the if the user sends a message it is by defualt encrypted in client side , so that no one can see the messages.Suppose the reciever wants to decrypt ,**reciver would simply click the corresponding profile photot of the message.**
+And again click it to encrypt.
+
+Users can leave the room or logout from the app using logut button at the top.
+
 
 ## Setup
 
